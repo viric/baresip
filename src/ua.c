@@ -1437,7 +1437,6 @@ static int add_transp_af(const struct sa *laddr)
 				if (err) {
 					warning("ua: tls_add_ca() failed:"
 						" %m\n", err);
-					return err;
 				}
 			}
 		}
