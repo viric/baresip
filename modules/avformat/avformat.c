@@ -433,10 +433,12 @@ static int module_init(void)
 	conf_get_str(conf_cur(), "avformat_decoder", decoder,
 			sizeof(decoder));
 
-	avformat_decoder = avcodec_find_decoder_by_name(decoder);
-	if (!avformat_decoder) {
-		warning("avformat: decoder not found (%s)\n", decoder);
-		return ENOENT;
+	if (strnlen(decoder, sizeof(decoder)) > 0) {
+		avformat_decoder = avcodec_find_decoder_by_name(decoder);
+		if (!avformat_decoder) {
+			warning("avformat: decoder not found (%s)\n", decoder);
+			return ENOENT;
+		}
 	}
 
 	avformat_network_init();
